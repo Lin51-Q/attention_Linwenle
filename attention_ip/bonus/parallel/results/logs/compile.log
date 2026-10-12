@@ -1,9 +1,9 @@
 ﻿ModelSim compile started: 2026-10-05T20:45:53.3207687+08:00
-RTL: D:\codex_work\01_examination\attention_ip\bonus\parallel\rtl\attention_ip.v
-TB : D:\codex_work\01_examination\attention_ip\bonus\parallel\sim\tb_attention_ip.v
+RTL: rtl\attention_ip.v
+TB : sim\tb_attention_ip.v
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 Start time: 20:45:53 on Oct 05,2026
-vlog -work work D:\codex_work\01_examination\attention_ip\bonus\parallel\rtl\attention_ip.v 
+vlog -work work rtl\attention_ip.v
 -- Compiling module attention_ip
 
 Top level modules:
@@ -12,7 +12,7 @@ End time: 20:45:53 on Oct 05,2026, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0
 Model Technology ModelSim SE-64 vlog 10.4 Compiler 2014.12 Dec  3 2014
 Start time: 20:45:53 on Oct 05,2026
-vlog -work work D:\codex_work\01_examination\attention_ip\bonus\parallel\sim\tb_attention_ip.v 
+vlog -work work sim\tb_attention_ip.v
 -- Compiling module tb_attention_ip
 
 Top level modules:

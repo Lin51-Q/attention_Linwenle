@@ -57,8 +57,8 @@ try {
     $compileOutput = New-Object System.Collections.Generic.List[string]
 
     $compileOutput.Add("ModelSim compile started: $(Get-Date -Format o)")
-    $compileOutput.Add("RTL: $RtlFile")
-    $compileOutput.Add("TB : $TbFile")
+    $compileOutput.Add("RTL: rtl\attention_ip.v")
+    $compileOutput.Add("TB : sim\tb_attention_ip.v")
 
     $vlibOutput = & $vlib work 2>&1
     $vlibExit = $LASTEXITCODE
@@ -67,12 +67,24 @@ try {
 
     $rtlOutput = & $vlog -work work $RtlFile 2>&1
     $rtlExit = $LASTEXITCODE
-    foreach ($line in $rtlOutput) { $compileOutput.Add([string]$line) }
+    foreach ($line in $rtlOutput) {
+        $logLine = [string]$line
+        if ($logLine -match '^vlog\s+-work\s+work\s+') {
+            $logLine = "vlog -work work rtl\attention_ip.v"
+        }
+        $compileOutput.Add($logLine)
+    }
     if ($rtlExit -ne 0) { throw "RTL compilation failed with exit code $rtlExit" }
 
     $tbOutput = & $vlog -work work $TbFile 2>&1
     $tbExit = $LASTEXITCODE
-    foreach ($line in $tbOutput) { $compileOutput.Add([string]$line) }
+    foreach ($line in $tbOutput) {
+        $logLine = [string]$line
+        if ($logLine -match '^vlog\s+-work\s+work\s+') {
+            $logLine = "vlog -work work sim\tb_attention_ip.v"
+        }
+        $compileOutput.Add($logLine)
+    }
     if ($tbExit -ne 0) { throw "TB compilation failed with exit code $tbExit" }
 
     $compileOutput | Set-Content -LiteralPath $CompileLog -Encoding UTF8
